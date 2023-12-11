@@ -1,0 +1,9 @@
+pgdata/
+*.wav
+*.mp3
+music-service/db/init-mongo.js
+*.idea/
+music-service/pkg/
+*.vscode/
+*.env
+

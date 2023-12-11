@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <!-- <link rel="stylesheet" href="/static/css/bootstrap.min.css"> -->
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  <title>{{ .title }}</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="/static/assets/favicon.svg" />
+  <style>
+    body {
+      margin: 50px auto;
+      /* Добавляем отступ сверху и автоматическое выравнивание по центру */
+      width: 50%;
+      /* Задаем ширину 50% от ширины экрана */
+    }
+
+    #c1 {
+      margin: 50px auto;
+      width: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="/signin" method="POST">
+    <div class="mb-3">
+      <input type="email" name="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+        placeholder="Enter your email" required>
+    </div>
+    <div class="mb-3">
+      <input type="password" name="Password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+        required>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign in</button>
+  </form>
+  <div class="alert alert-success" role="alert" id="c1">
+    New to LAD?
+    <a href="/signup" class="alert-link">Create an account</a>.
+  </div>
+</body>
+
+</html>

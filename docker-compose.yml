@@ -1,0 +1,81 @@
+version: '3'
+
+services:
+  auth-service-db:
+    image: img-db-psql-auth-service-lad:1.0
+    container_name: db-psql-auth-service-lad
+    build:
+      context: .
+      dockerfile: auth-service/db/Dockerfile
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=14725
+      - POSTGRES_DB=registration
+    restart: always
+    # Only for deploy server
+    # volumes:
+    #   - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - microservice_network
+
+  auth-service-app:
+    image: img-app-go-auth-service-lad:1.0
+    container_name: app-go-auth-service-lad
+    build:
+      context: .
+      dockerfile: auth-service/app/Dockerfile
+    depends_on:
+      - auth-service-db
+    restart: on-failure
+    networks:
+      - microservice_network
+  
+  music-service-db:
+    image: mongo:latest
+    container_name: db-mongo-music-service-lad
+    build:
+      context: .
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=12345
+    ports:
+      - "27017:27017"
+    restart: always
+    volumes:
+      - ./music-service/db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+    networks:
+      - microservice_network
+
+  music-service-app:
+    image: img-app-go-music-service-lad:1.0
+    container_name: app-go-music-service-lad
+    build:
+      context: .
+      dockerfile: music-service/app/Dockerfile
+    depends_on:
+      - auth-service-app
+      - music-service-db
+    restart: always
+    networks:
+      - microservice_network
+  
+  api-gateway-app:
+    image: img-app-java-api-gateway-lad:1.0
+    container_name: app-java-api-gateway-lad
+    build:
+      context: .
+      dockerfile: api-gateway/Dockerfile
+    depends_on:
+      - auth-service-app
+      - music-service-app
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    networks:
+      - microservice_network
+
+networks:
+  microservice_network:
+    driver: bridge

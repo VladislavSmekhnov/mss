@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <!-- HLS player-->
+  <div class="hls-player">
+    <div class="seek-slider-container">
+      <input type="range" class="seek-slider" id="seek-slider" min="0" max="100" value="0">
+    </div>
+    <div class="player-controls-main">
+      <div class="player-controls">
+        <button class="play-button" id="previous-btn">
+          <span class="material-icons md-30">fast_rewind</span>
+        </button>
+        <button class="play-button" id="play-pause-button">
+          <span class="material-icons md-36">play_arrow</span>
+        </button>
+        <button class="play-button" id="next-btn">
+          <span class="material-icons md-30">fast_forward</span>
+        </button>
+
+        <div class="track-info">
+          <div class="track-title">Song Title</div>
+          <div class="track-artist">Artist Name</div>
+        </div>
+        <div class="repeat-btn" id="repeat-btn">
+          <span class="material-icons">repeat</span>
+        </div>
+        <div class="time-display">
+          <span id="current-time">00:00</span> / <span id="duration">00:00</span>
+        </div>
+        <div class="volume-container">
+          <button class="mute-button" id="mute-button">
+            <span class="material-icons">volume_up</span>
+          </button>
+          <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="100">
+        </div>
+      </div>
+
+
+      <audio id="audio-player"></audio>
+
+    </div>
+  </div>
+  <script src="/music_service/static/js/hls.js"></script>
+  <script src="/music_service/static/js/scripts.js"></script>
+</body>
+
+
+</html>
